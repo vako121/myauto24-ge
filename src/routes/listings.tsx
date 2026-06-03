@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { fetchCars, makes, cities, type Car } from "@/lib/mock-cars";
-
+import { supabase } from "@/integrations/supabase/client";
 type Search = {
   make?: string;
   model?: string;
