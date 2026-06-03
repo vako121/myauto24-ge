@@ -31,7 +31,16 @@ export const Route = createFileRoute("/listings")({
     city: typeof s.city === "string" ? s.city : undefined,
     maxPrice: typeof s.maxPrice === "number" ? s.maxPrice : undefined,
   }),
-  loader: () => fetchCars(),
+  loader: async () => {
+  const { data, error } = await supabase
+    .from("listings")
+    .select("*");
+  if (error) {
+    console.error(error);
+    return [];
+  }
+  return data ?? [];
+},
   head: () => ({
     meta: [
       { title: "ყველა განცხადება — myauto24.ge" },
