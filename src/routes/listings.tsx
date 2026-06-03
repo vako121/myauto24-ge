@@ -76,7 +76,9 @@ function ListingsPage() {
     });
     if (sort === "price-asc") result = [...result].sort((a, b) => a.price - b.price);
     else if (sort === "price-desc") result = [...result].sort((a, b) => b.price - a.price);
-    else result = [...result].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+   else result = [...result].sort((a, b) =>
+  (b.created_at ?? "").localeCompare(a.created_at ?? "")
+);
     // VIP first
     return [...result].sort((a, b) => {
       const rank = (v: Car["vip"]) => (v === "super" ? 3 : v === "vip" ? 2 : v === "color" ? 1 : 0);
