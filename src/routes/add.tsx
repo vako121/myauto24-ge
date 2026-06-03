@@ -77,10 +77,9 @@ function AddPage() {
   const [photos, setPhotos] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const { user, loading } = useAuth();
-  const selectedModels =
-  form.make && makeModels[form.make as keyof typeof makeModels]
-    ? makeModels[form.make as keyof typeof makeModels]
-    : [];
+const selectedModels = form.make
+? modelsByMake[form.make] || []
+: [];
 
 
   useEffect(() => {
