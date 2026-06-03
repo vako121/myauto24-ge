@@ -72,7 +72,7 @@ function HomePage() {
 
   const superVip = cars.filter((c) => c.vip === "super").slice(0, 8);
   const vipCars = cars.filter((c) => c.vip === "vip").slice(0, 8);
-  const latest = [...cars].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 12);
+  const latest = [...cars].sort((a, b) => b.created_at.localeCompare(a.created_at)).slice(0, 12);
 
   return (
     <div className="flex min-h-screen flex-col bg-muted/30">
