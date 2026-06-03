@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: myauto24-ge
+    runtime: node
+    buildCommand: bun install --frozen-lockfile && bun run build
+    startCommand: bun run start
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
