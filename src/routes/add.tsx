@@ -18,7 +18,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import {
   cities,
-  makeModels,
+  modelsByMake,
   makes,
   type Drive,
   type Fuel,
