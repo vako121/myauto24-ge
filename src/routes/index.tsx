@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { allModels, fetchCars, getModelsForMake, makes, cities } from "@/lib/mock-cars";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,7 +42,16 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
     ],
   }),
-  loader: () => fetchCars(),
+  loader: async () => {
+  const { data, error } = await supabase
+    .from("listings")
+    .select("*");
+  if (error) {
+    console.error(error);
+    return [];
+  }
+  return data ?? [];
+},
   component: HomePage,
 });
 
