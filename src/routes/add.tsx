@@ -147,7 +147,7 @@ const packages = [
       }),
     );
 
-    return urls[0];
+    return urls;
   };
 
   const submit = async (e: React.FormEvent) => {
@@ -168,7 +168,7 @@ const packages = [
 
     setSubmitting(true);
     try {
-      const imageUrl = await uploadPhotos(user.id);
+      const imageUrls = await uploadPhotos(user.id);
       const vip = pkg === "free" ? null : (pkg as Exclude<VipPackage, null>);
       const { data, error } = await supabase
         .from("listings")
@@ -185,7 +185,8 @@ const packages = [
           drive: form.drive,
           color: form.color,
           description: form.description,
-          image_url: imageUrl,
+           image_url: imageUrls[0],
+          image_urls: imageUrls,
           contact_name: form.contact_name,
         contact_phone: form.contact_phone,
           user_id: user.id,
