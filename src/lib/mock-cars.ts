@@ -292,8 +292,19 @@ export const cities = Array.from(
   new Set(cars.map((car) => car.city))
 ).sort();
 export async function fetchCars() {
-  return cars;
+  const { data, error } = await supabase
+    .from("listings")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (error) return [];
+  return data;
 }
 export async function fetchCarById(id: string) {
-  return cars.find((car) => car.id === id) ?? null;
+  const { data, error } = await supabase
+    .from("listings")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error) return null;
+  return data;
 }
