@@ -32,8 +32,8 @@ export const Route = createFileRoute("/car/$id")({
       `${car.make} ${car.model} ${car.year}, ${car.mileage.toLocaleString()} კმ, ${car.city}`;
     const url = `https://sakartvelo-motors.lovable.app/car/${params.id}`;
     const image = car.image?.startsWith("http")
-      ? car.image
-      : `https://sakartvelo-motors.lovable.app${car.image}`;
+      ? car.image_url
+      : `https://sakartvelo-motors.lovable.app${car.image_url}`;
     return {
       meta: [
         { title },
