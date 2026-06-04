@@ -173,7 +173,7 @@ function ProfilePage() {
                     className="flex flex-1 items-center gap-3"
                   >
                     <img
-                      src={listing.image}
+                      src={listing.image_url}
                       alt={`${listing.make} ${listing.model}`}
                       className="h-20 w-24 rounded-lg object-cover"
                     />
