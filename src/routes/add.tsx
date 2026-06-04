@@ -460,10 +460,7 @@ const packages = [
                     onChange={(e) => update("contact_phone", e.target.value)}
                     placeholder="+995 555 12 34 56"
                   />
-                  <Input required placeholder="გიორგი" />
-                </Field>
-                <Field label="ტელეფონი">
-                  <Input required type="tel" placeholder="+995 555 12 34 56" />
+                 
                 </Field>
               </div>
             </section>
