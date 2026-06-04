@@ -134,13 +134,27 @@ const [activeImage, setActiveImage] = useState(galleryImages[0]);
         <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
           <div>
             <div className="overflow-hidden rounded-2xl border bg-muted">
-              <img
-  src={car.image_url}
+      <img
+  src={activeImage}
   alt={`${car.make} ${car.model}`}
   className="aspect-[16/10] w-full object-cover cursor-pointer"
   onClick={() => setShowImage(true)}
 />
             </div>
+            {galleryImages.length > 1 && (
+  <div className="mt-3 grid grid-cols-4 gap-2">
+    {galleryImages.map((image, index) => (
+      <img
+        key={index}
+        src={image}
+        alt={`photo-${index}`}
+        className="aspect-square w-full cursor-pointer rounded-lg object-cover border"
+        onClick={() => setActiveImage(image)}
+      />
+    ))}
+  </div>
+)}
+          
             {showImage && (
   <div
     className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
