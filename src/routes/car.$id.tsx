@@ -127,7 +127,7 @@ function CarPage() {
           <div>
             <div className="overflow-hidden rounded-2xl border bg-muted">
               <img
-                src={car.image}
+                src={car.image_url}
                 alt={`${car.make} ${car.model}`}
                 className="aspect-[16/10] w-full object-cover"
               />
