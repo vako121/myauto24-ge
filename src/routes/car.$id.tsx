@@ -107,6 +107,10 @@ function whatsappPhone(phone?: string | null) {
 function CarPage() {
   const [showImage, setShowImage] = useState(false);
   const { car } = Route.useLoaderData();
+  const galleryImages = car.image_urls?.length
+  ? car.image_urls
+  : [car.image_url];
+const [activeImage, setActiveImage] = useState(galleryImages[0]);
   const phone = car.phone?.trim();
   const phoneHref = phone ? `tel:${normalizePhone(phone)}` : undefined;
   const whatsappHref = phone
@@ -141,10 +145,10 @@ function CarPage() {
     onClick={() => setShowImage(false)}
   >
     <img
-      src={car.image_url}
-      alt={`${car.make} ${car.model}`}
-      className="max-h-screen max-w-screen"
-    />
+  src={activeImage}
+  alt={`${car.make} ${car.model}`}
+  className="max-h-screen max-w-screen"
+/>
   </div>
 )}
 
