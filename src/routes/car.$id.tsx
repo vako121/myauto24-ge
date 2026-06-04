@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
   ArrowLeft,
@@ -104,6 +105,7 @@ function whatsappPhone(phone?: string | null) {
 }
 
 function CarPage() {
+  const [showImage, setShowImage] = useState(false);
   const { car } = Route.useLoaderData();
   const phone = car.phone?.trim();
   const phoneHref = phone ? `tel:${normalizePhone(phone)}` : undefined;
