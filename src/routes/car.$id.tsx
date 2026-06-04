@@ -11,6 +11,8 @@ import {
   Heart,
   Cog,
   Palette,
+    ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
