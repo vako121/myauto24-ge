@@ -80,7 +80,29 @@ function AddPage() {
 const selectedModels = form.make
 ? modelsByMake[form.make] || []
 : [];
-
+const packages = [
+  {
+    id: "free",
+    name: "უფასო",
+    price: 0,
+    icon: Upload,
+    perks: ["1 განცხადება"],
+  },
+  {
+    id: "vip",
+    name: "VIP",
+    price: 10,
+    icon: Upload,
+    perks: ["VIP გამოჩენა"],
+  },
+  {
+    id: "super",
+    name: "SUPER VIP",
+    price: 20,
+    icon: Upload,
+    perks: ["TOP პოზიცია"],
+  },
+];
 
   useEffect(() => {
     if (!user) return;
