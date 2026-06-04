@@ -175,7 +175,7 @@ const [activeImage, setActiveImage] = useState(galleryImages[0]);
 
             <div className="mt-6 rounded-2xl border bg-card p-6">
               <h2 className="mb-4 text-lg font-semibold">მახასიათებლები</h2>
-              <dl className="grid gap-4 sm:grid-cols-2">
+              <dl className="grid gap-2 sm:grid-cols-2">
                 {[
                   { icon: Calendar, k: "წელი", v: car.year },
                   { icon: Gauge, k: "გარბენი", v: `${car.mileage.toLocaleString()} კმ` },
@@ -188,9 +188,9 @@ const [activeImage, setActiveImage] = useState(galleryImages[0]);
                 ].map((s) => (
                   <div
                     key={s.k}
-                    className="flex items-center gap-3 rounded-lg border bg-background p-3"
+                    className="flex items-center gap-2 rounded-lg border bg-background p-2"
                   >
-                    <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
                       <s.icon className="h-4 w-4" />
                     </div>
                     <div>
