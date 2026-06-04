@@ -127,11 +127,24 @@ function CarPage() {
           <div>
             <div className="overflow-hidden rounded-2xl border bg-muted">
               <img
-                src={car.image_url}
-                alt={`${car.make} ${car.model}`}
-                className="aspect-[16/10] w-full object-cover"
-              />
+  src={car.image_url}
+  alt={`${car.make} ${car.model}`}
+  className="aspect-[16/10] w-full object-cover cursor-pointer"
+  onClick={() => setShowImage(true)}
+/>
             </div>
+            {showImage && (
+  <div
+    className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+    onClick={() => setShowImage(false)}
+  >
+    <img
+      src={car.image_url}
+      alt={`${car.make} ${car.model}`}
+      className="max-h-screen max-w-screen"
+    />
+  </div>
+)}
 
             <div className="mt-6 rounded-2xl border bg-card p-6">
               <h2 className="text-lg font-semibold">აღწერა</h2>
