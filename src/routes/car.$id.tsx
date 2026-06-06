@@ -113,7 +113,7 @@ function CarPage() {
   ? car.image_urls
   : [car.image_url];
 const [activeImage, setActiveImage] = useState(galleryImages[0]);
-  const phone = car.phone?.trim();
+  const phone = car.contact_phone?.trim();
   const phoneHref = phone ? `tel:${normalizePhone(phone)}` : undefined;
   const whatsappHref = phone
    ? `https://wa.me/${whatsappPhone(phone)}?text=${encodeURIComponent(`გამარჯობა, მაინტერესებს ${car.make} ${car.model} განცხადება myauto24.ge-ზე.`)}`
