@@ -228,13 +228,20 @@ const [activeImage, setActiveImage] = useState(galleryImages[0]);
                   </p>
                 )}
                 <Button asChild className="w-full gap-2" size="lg">
-                  <a href={`tel:${car.phone}`}>
+                 <a href={phoneHref}>
                     <Phone className="h-4 w-4" /> {car.contact_phone || "ნომერი არ არის მითითებული"}
                   </a>
                 </Button>
-                <Button variant="outline" className="w-full gap-2" size="lg">
-                  <MessageCircle className="h-4 w-4" /> შეტყობინება
-                </Button>
+               <Button asChild variant="outline" className="w-full gap-2" size="lg">
+  <a
+    href={whatsappHref}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <MessageCircle className="h-4 w-4" />
+    შეტყობინება
+  </a>
+</Button>
                 <Button variant="ghost" className="w-full gap-2" size="lg">
                   <Heart className="h-4 w-4" /> რჩეულებში
                 </Button>
