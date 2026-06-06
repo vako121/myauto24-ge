@@ -232,14 +232,18 @@ const [activeImage, setActiveImage] = useState(galleryImages[0]);
                     <Phone className="h-4 w-4" /> {car.contact_phone || "ნომერი არ არის მითითებული"}
                   </a>
                 </Button>
-               <Button asChild variant="outline" className="w-full gap-2" size="lg">
+              <Button
+  asChild
+  className="w-full gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white"
+  size="lg"
+>
   <a
     href={whatsappHref}
     target="_blank"
     rel="noopener noreferrer"
   >
     <MessageCircle className="h-4 w-4" />
-    შეტყობინება
+    WhatsApp-ზე მიწერა
   </a>
 </Button>
                 <Button variant="ghost" className="w-full gap-2" size="lg">
