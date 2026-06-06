@@ -251,12 +251,7 @@ const [activeImage, setActiveImage] = useState(galleryImages[0]);
                 </Button>
               </div>
 
-              <div className="mt-6 rounded-lg bg-muted p-4 text-xs text-muted-foreground">
-                <p className="font-semibold text-foreground">⚠️ უფასო რჩევა</p>
-                <p className="mt-1">
-                  არასოდეს გადაიხადო თანხა მანქანის ნახვამდე. 
-                </p>
-              </div>
+              
             </div>
           </aside>
         </div>
