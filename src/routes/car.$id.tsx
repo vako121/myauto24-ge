@@ -173,7 +173,7 @@ const [activeImage, setActiveImage] = useState(galleryImages[0]);
               <p className="mt-3 leading-relaxed text-muted-foreground">{car.description}</p>
             </div>
 
-            <div className="mt-6 rounded-2xl border bg-card p-6">
+            <div className="mt-3 rounded-2xl border bg-card p-6">
               <h2 className="mb-4 text-lg font-semibold">მახასიათებლები</h2>
               <dl className="grid gap-2 sm:grid-cols-2">
                 {[
