@@ -91,14 +91,14 @@ const packages = [
   {
     id: "vip",
     name: "VIP",
-    price: 10,
+    price: 3,
     icon: Upload,
     perks: ["VIP გამოჩენა"],
   },
   {
     id: "super",
     name: "SUPER VIP",
-    price: 20,
+    price: 15,
     icon: Upload,
     perks: ["TOP პოზიცია"],
   },
@@ -486,7 +486,7 @@ const packages = [
                           <span className="font-semibold">{p.name}</span>
                         </div>
                         <span className="text-sm font-bold">
-                          {p.price === 0 ? "უფასო" : `$${p.price}`}
+                         {p.price === 0 ? "უფასო" : `${p.price} ₾`}
                         </span>
                       </div>
                       <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
