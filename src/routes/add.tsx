@@ -497,6 +497,17 @@ const packages = [
                     </button>
                   );
                 })}
+                {pkg !== "free" && (
+  <div className="mt-4 rounded-lg border border-orange-300 bg-orange-50 p-4">
+    <h3 className="font-bold mb-2">გადახდის დეტალები</h3>
+    <p>მიმღები: შპს ჯეოინვესტ10/24</p>
+    <p>საქართველოს ბანკი</p>
+    <p>ანგარიშის ნომერი: GE43BG0000000589028365GEL</p>
+    <p className="mt-2 text-sm">
+      ჩარიცხვის შემდეგ ადმინისტრაცია VIP პაკეტს 24 საათის განმავლობაში გააქტიურებს.
+    </p>
+  </div>
+)}
               </div>
               <Button type="submit" size="lg" className="mt-5 w-full" disabled={submitting}>
                 {submitting ? (
