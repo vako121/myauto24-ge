@@ -20,7 +20,7 @@ const secondaryNav = [
   { to: "/listings", label: "VIN შემოწმება" },
   { to: "/listings", label: "დილერები" },
   { to: "/listings", label: "ავტოსალონები" },
-  { to: "/listings", label: "ავტონაწილები" },
+  { to: "https://autonawilebi.ge", label: "ავტონაწილები" },
   { to: "/listings", label: "კატალოგი" },
   { to: "/about", label: "დახმარება" },
   { to: "/contact", label: "კონტაქტი" },
