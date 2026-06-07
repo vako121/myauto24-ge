@@ -315,7 +315,7 @@ const packages = [
                 <Field label="გარბენი (კმ)">
                   <Input
                     type="number"
-                    required
+                   
                     value={form.mileage}
                     onChange={(e) => update("mileage", e.target.value)}
                     placeholder="50000"
