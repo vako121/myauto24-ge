@@ -348,6 +348,8 @@ const packages = [
                       <SelectItem value="დიზელი">დიზელი</SelectItem>
                       <SelectItem value="ჰიბრიდი">ჰიბრიდი</SelectItem>
                       <SelectItem value="ელექტრო">ელექტრო</SelectItem>
+                      <SelectItem value="თხევადი გაზი">თხევადი გაზი</SelectItem>
+                      <SelectItem value="ბუნებრივი გაზი">ბუნებრივი გაზი</SelectItem>
                     </SelectContent>
                   </Select>
                 </Field>
