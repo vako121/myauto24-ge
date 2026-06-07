@@ -322,23 +322,15 @@ const packages = [
                   />
                 </Field>
               <Field label="ფერი">
-  <select
-    value={form.color}
-    onChange={(e) => update("color", e.target.value)}
-    className="w-full h-12 rounded-md border px-3"
-  >
-    <option value="">აირჩიე ფერი</option>
-    <option value="თეთრი">თეთრი</option>
-    <option value="შავი">შავი</option>
-    <option value="ვერცხლისფერი">ვერცხლისფერი</option>
-    <option value="ნაცრისფერი">ნაცრისფერი</option>
-    <option value="ლურჯი">ლურჯი</option>
-    <option value="წითელი">წითელი</option>
-    <option value="მწვანე">მწვანე</option>
-    <option value="ყვითელი">ყვითელი</option>
-    <option value="ყავისფერი">ყავისფერი</option>
-  </select>
-</Field>
+                  <Input
+                   
+                    value={form.color}
+                    onChange={(e) => update("color", e.target.value)}
+                    placeholder="თეთრი"
+                  />
+                </Field>
+              </div>
+            </section>
             <section className="rounded-2xl border bg-card p-6">
               <h2 className="mb-4 text-lg font-semibold">ტექნიკური მახასიათებლები</h2>
               <div className="grid gap-4 sm:grid-cols-2">
