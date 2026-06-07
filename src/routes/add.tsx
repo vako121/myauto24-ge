@@ -340,6 +340,7 @@ const packages = [
     <option value="ყავისფერი">ყავისფერი</option>
 
   </select>
+               </div>
 </Field>
             <section className="rounded-2xl border bg-card p-6">
               <h2 className="mb-4 text-lg font-semibold">ტექნიკური მახასიათებლები</h2>
