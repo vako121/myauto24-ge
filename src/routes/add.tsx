@@ -321,9 +321,8 @@ const packages = [
                     placeholder="50000"
                   />
                 </Field>
-               <Field label="ფერი">
+              <Field label="ფერი">
   <select
-    required
     value={form.color}
     onChange={(e) => update("color", e.target.value)}
     className="w-full h-12 rounded-md border px-3"
@@ -338,9 +337,7 @@ const packages = [
     <option value="მწვანე">მწვანე</option>
     <option value="ყვითელი">ყვითელი</option>
     <option value="ყავისფერი">ყავისფერი</option>
-
   </select>
-               </div>
 </Field>
             <section className="rounded-2xl border bg-card p-6">
               <h2 className="mb-4 text-lg font-semibold">ტექნიკური მახასიათებლები</h2>
