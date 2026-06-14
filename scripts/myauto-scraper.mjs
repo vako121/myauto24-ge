@@ -193,7 +193,7 @@ function parseSummaryText(text) {
 }
 
 function buildDescription(title, sourceUrl) {
-  return `${title}\n\nწყარო: ${sourceUrl}\nიმპორტირებულია MyAuto.ge-დან ავტომატური სინქრონიზაციით.`;
+  return `${title}\n\: ${sourceUrl}\nიავტომატური სინქრონიზაციით.`;
 }
 
 function splitTitle(title) {
