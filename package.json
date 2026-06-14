@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "import:listings": "node scripts/import-listings.mjs",
-    "scrape:myauto": "node scripts/myauto-scraper.mjs"
+    "scrape:myauto": "node scripts/myauto-scraper.mjs" ,
     "scrape:auto": "node scripts/auto-scraper.mjs" ,
     
   },
