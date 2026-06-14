@@ -107,6 +107,7 @@ async function scrapeMyAuto(page, url, limitCount) {
   });
 
   const listings = [];
+  console.log("Found listings:", summaryListings.length);
   for (const summary of summaryListings.slice(0, limitCount)) {
     const detail = await scrapeDetailPage(page, summary.url).catch((error) => {
       console.warn(`Could not scrape ${summary.url}: ${error.message}`);
