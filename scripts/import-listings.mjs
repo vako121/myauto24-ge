@@ -71,7 +71,9 @@ const supabase = createClient(supabaseUrl, serviceRoleKey, {
 let imported = 0;
 for (let index = 0; index < listings.length; index += batchSize) {
   const batch = listings.slice(index, index + batchSize);
-  const { error } = await supabase.from("listings").insert(batch);
+  const { error } = await supabase
+    .from("listings")
+    .upsert(batch, { onConflict: "source_url", ignoreDuplicates: true });
   if (error)
     fail(
       `Import failed at rows ${index + 1}-${index + batch.length}: ${error.message}`,
@@ -155,6 +157,7 @@ function normalizeListings(rows) {
       contact_name: cleanString(row.contact_name),
       contact_phone: cleanString(row.contact_phone),
       vip: cleanString(row.vip) || null,
+      source_url: cleanString(row.source_url) || null,
     };
 
     for (const field of REQUIRED_FIELDS) {

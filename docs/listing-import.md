@@ -35,7 +35,7 @@ npm run import:listings -- --source https://partner.example/feed.json --token YO
 
 `make`, `model`, `year`, `price`, `mileage`, `fuel`, `transmission`, `city`, `engine`, `drive`, `color`, `description`, `image_url`, `user_id`.
 
-არასავალდებულო ველები: `contact_name`, `contact_phone`, `vip` (`super`, `vip`, `color`).
+არასავალდებულო ველები: `contact_name`, `contact_phone`, `vip` (`super`, `vip`, `color`), `source_url` (დუბლიკატების გამოსატოვებლად).
 
 ## JSON მაგალითი
 
@@ -68,3 +68,25 @@ npm run import:listings -- --source https://partner.example/feed.json --token YO
 make,model,year,price,mileage,fuel,transmission,city,engine,drive,color,description,image_url,user_id,contact_name,contact_phone
 Toyota,Prius,2018,12500,94000,ჰიბრიდი,ავტომატიკა,თბილისი,1.8L,წინა,თეთრი,შემოწმებული ავტომობილი,https://example.com/prius.jpg,00000000-0000-0000-0000-000000000000,იმპორტი,+995555000000
 ```
+
+## MyAuto.ge scraper და ყოველდღიური სინქრონიზაცია
+
+MyAuto.ge-დან სინქრონიზაციისთვის დაემატა Playwright scraper:
+
+```bash
+MYAUTO_IMPORT_USER_ID="00000000-0000-0000-0000-000000000000" \
+SUPABASE_URL="https://YOUR_PROJECT.supabase.co" \
+SUPABASE_SERVICE_ROLE_KEY="YOUR_SERVICE_ROLE_KEY" \
+npm run scrape:myauto -- --limit 500
+```
+
+ტესტური შემოწმება იმპორტის გარეშე:
+
+```bash
+MYAUTO_IMPORT_USER_ID="00000000-0000-0000-0000-000000000000" \
+npm run scrape:myauto -- --limit 5 --dry-run
+```
+
+scraper იღებს title, price, year, mileage, fuel, transmission, images და source URL-ს, შემდეგ გარდაქმნის მონაცემებს იგივე ფორმატში, რომელსაც `import-listings.mjs` იყენებს. დუბლიკატების გამოტოვება ხდება `source_url` ველის მიხედვით.
+
+ყოველდღიური სინქრონიზაცია გაწერილია GitHub Actions workflow-ში (`Daily MyAuto sync`). საჭირო secrets: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `MYAUTO_IMPORT_USER_ID`, სურვილისამებრ `MYAUTO_IMPORT_CONTACT_NAME`, `MYAUTO_IMPORT_CONTACT_PHONE`.
