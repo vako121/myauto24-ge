@@ -2,8 +2,8 @@
 import { createClient } from "@supabase/supabase-js";
 
 const DEFAULT_SEARCH_URL = "https://myauto.ge/en/s";
-const DEFAULT_LIMIT = 100;
-const DEFAULT_BATCH_SIZE = 100;
+const DEFAULT_LIMIT = 1000;
+const DEFAULT_BATCH_SIZE = 1000;
 const DEFAULT_USER_ID = process.env.MYAUTO_IMPORT_USER_ID;
 
 const args = parseArgs(process.argv.slice(2));
@@ -120,7 +120,7 @@ async function scrapeMyAuto(page, url, limitCount) {
 }
 
 async function scrapeDetailPage(page, url) {
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 5000 });
   await dismissCookieBanner(page);
 
   return page.evaluate(() => {
@@ -164,7 +164,7 @@ function toImportListing(listing) {
     engine: parsed.engine ?? "N/A",
     drive: parsed.drive ?? "წინა",
     color: parsed.color ?? "N/A",
-    description: listing.text?.slice(0, 3000) || title,
+  description: listing.title || title,
 
     image_url:
       listing.images?.[0] ?? listing.image ?? "https://myauto.ge/favicon.ico",
@@ -338,8 +338,8 @@ async function dismissCookieBanner(page) {
 
 async function autoScroll(page, steps) {
   for (let index = 0; index < steps; index += 1) {
-    await page.mouse.wheel(0, 2500);
-    await page.waitForTimeout(800);
+    await page.mouse.wheel(0, 5000);
+    await page.waitForTimeout(1500);
   }
 }
 
