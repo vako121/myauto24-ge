@@ -167,6 +167,7 @@ async function scrapeAutoGeDetailPage(page, url) {
       cleanText(document.querySelector("h2")?.textContent) ||
       cleanText(document.title);
     const text = cleanText(document.body.textContent);
+    console.log("DETAIL TEXT:", text.slice(0, 1000));
     const images = Array.from(document.querySelectorAll("img"))
       .map(imageUrl)
       .map(absoluteUrl)
