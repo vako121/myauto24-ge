@@ -1,4 +1,4 @@
-name: Daily MyAuto sync
+name: Daily Auto sync
 
 on:
   schedule:
@@ -31,4 +31,4 @@ jobs:
           MYAUTO_IMPORT_USER_ID: ${{ secrets.MYAUTO_IMPORT_USER_ID }}
           MYAUTO_IMPORT_CONTACT_NAME: ${{ secrets.MYAUTO_IMPORT_CONTACT_NAME }}
           MYAUTO_IMPORT_CONTACT_PHONE: ${{ secrets.MYAUTO_IMPORT_CONTACT_PHONE }}
-        run: npm run scrape:myauto -- --limit 500
+        run: npm run scrape:auto -- --limit 500
