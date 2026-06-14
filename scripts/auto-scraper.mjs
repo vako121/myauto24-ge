@@ -208,14 +208,11 @@ async function findNextPageUrl(page, currentUrl, offset) {
     };
 
     const links = Array.from(document.querySelectorAll("a[href]"));
-    const nextLink = links.find((link) => {
-      const text = link.textContent?.replace(/\s+/g, " ").trim() ?? "";
-      const rel = link.getAttribute("rel") ?? "";
-      const aria = link.getAttribute("aria-label") ?? "";
-      return /next|შემდეგ|›|»/i.test(`${text} ${rel} ${aria}`);
-    });
-
-    return nextLink ? absoluteUrl(nextLink.getAttribute("href")) : "";
+   const nextLink = links.find((link) => {
+  const href = link.getAttribute("href") ?? "";
+  return /page=2|page\/2/i.test(href);
+});
+return nextLink ? absoluteUrl(nextLink.getAttribute("href")) : ""; 
   });
 
   if (nextFromDom && nextFromDom !== currentUrl)
