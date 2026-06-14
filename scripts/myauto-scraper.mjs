@@ -163,7 +163,8 @@ function toImportListing(listing) {
     engine: parsed.engine ?? "N/A",
     drive: parsed.drive ?? "წინა",
     color: parsed.color ?? "N/A",
-    description: buildDescription(title, listing.url),
+    description: listing.text?.slice(0, 3000) || title,
+
     image_url:
       listing.images?.[0] ?? listing.image ?? "https://myauto.ge/favicon.ico",
     user_id: DEFAULT_USER_ID,
