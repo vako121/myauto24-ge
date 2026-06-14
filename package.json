@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "import:listings": "node scripts/import-listings.mjs",
     "scrape:myauto": "node scripts/myauto-scraper.mjs"
-    "import:listings": "node scripts/import-listings.mjs"
+    
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",
