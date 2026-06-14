@@ -185,6 +185,7 @@ console.log("PHONE:", phone);
     return {
       title,
       text,
+      phone,
       description:
         cleanText(
           document.querySelector(
@@ -246,7 +247,7 @@ function toImportListing(listing) {
     image_url: listing.images?.[0] ?? "https://www.auto.ge/favicon.ico",
     user_id: DEFAULT_USER_ID,
     contact_name: process.env.MYAUTO_IMPORT_CONTACT_NAME ?? "Auto.ge Import",
-    contact_phone: process.env.MYAUTO_IMPORT_CONTACT_PHONE ?? "",
+    contact_phone: listing.phone ?? "",
     vip: null,
     source_url: listing.url,
   };
@@ -269,7 +270,7 @@ function parseSummaryText(text) {
 }
 
 function buildDescription(title, sourceUrl) {
-  return `${title}\n\nწყარო: ${sourceUrl}\nიმპორტირებულია Auto.ge-დან ავტომატური სინქრონიზაციით.`;
+  return title;
 }
 
 function splitTitle(title) {
