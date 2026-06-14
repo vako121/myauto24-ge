@@ -70,7 +70,7 @@ try {
 }
 
 async function scrapeMyAuto(page, url, limitCount) {
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 5000 });
   await dismissCookieBanner(page);
  await autoScroll(page, 50);
 
