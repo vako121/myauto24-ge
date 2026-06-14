@@ -72,7 +72,7 @@ try {
 async function scrapeMyAuto(page, url, limitCount) {
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
   await dismissCookieBanner(page);
-  await autoScroll(page, Math.min(8, Math.ceil(limitCount / 20)));
+ await autoScroll(page, 50);
 
   const summaryListings = await page.evaluate(() => {
     const anchors = Array.from(document.querySelectorAll("a[href]"));
