@@ -212,15 +212,9 @@ async function findNextPageUrl(page, currentUrl, offset) {
     return nextLink ? absoluteUrl(nextLink.getAttribute("href")) : "";
   });
 
-  if (nextFromDom && nextFromDom !== currentUrl) return nextFromDom;
-
-  const url = new URL(currentUrl);
-  const currentPage = Number.parseInt(url.searchParams.get("page") ?? "1", 10);
-  url.searchParams.set("page", String(currentPage + 1));
-  const pageUrl = url.href;
-  if (pageUrl !== currentUrl) return pageUrl;
-
-  url.searchParams.set("offset", String(offset));
+  if (nextFromDom && nextFromDom !== currentUrl)
+return nextFromDom;
+return null;
   return url.href;
 }
 
