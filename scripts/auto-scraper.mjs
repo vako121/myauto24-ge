@@ -177,6 +177,7 @@ async function scrapeAutoGeDetailPage(page, url) {
           !src.startsWith("data:") &&
           /auto\.ge|static|cloud|image|images|uploads|photos|files/i.test(src),
       );
+    console.log("IMAGES:", images.slice(0, 10));
 
     return {
       title,
