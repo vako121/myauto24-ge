@@ -15,8 +15,9 @@ const REQUIRED_FIELDS = [
   "drive",
   "color",
   "description",
-  "image_url",
+  "image_urls",
   "user_id",
+  "contact_phone",
 ];
 const ALLOWED_FUEL = new Set(["ბენზინი", "დიზელი", "ჰიბრიდი", "ელექტრო"]);
 const ALLOWED_TRANSMISSION = new Set(["ავტომატიკა", "მექანიკა"]);
