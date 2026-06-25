@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Loader2, Lock, LogIn, Upload } from "lucide-react";
+import { Loader2, Lock, LogIn, Upload } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -38,6 +38,8 @@ type FormState = {
   drive: Drive | "";
   color: string;
   description: string;
+  contact_name: string;
+  contact_phone: string;
 };
 
 const initialForm: FormState = {
@@ -63,7 +65,8 @@ export const Route = createFileRoute("/add")({
       { title: "განცხადების დამატება — myauto24.ge" },
       {
         name: "description",
-        content: "დაამატე შენი ავტომობილის განცხადება უფასოდ ან აირჩიე VIP პაკეტი.",
+        content:
+          "დაამატე შენი ავტომობილის განცხადება უფასოდ ან აირჩიე VIP პაკეტი.",
       },
     ],
   }),
@@ -77,32 +80,42 @@ function AddPage() {
   const [photos, setPhotos] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const { user, loading } = useAuth();
-const selectedModels = form.make
-? modelsByMake[form.make] || []
-: [];
-const packages = [
-  {
-    id: "free",
-    name: "უფასო",
-    price: 0,
-    icon: Upload,
-    perks: ["1 განცხადება"],
-  },
-  {
-    id: "vip",
-    name: "VIP",
-    price: 3,
-    icon: Upload,
-    perks: ["VIP გამოჩენა"],
-  },
-  {
-    id: "super",
-    name: "SUPER VIP",
-    price: 15,
-    icon: Upload,
-    perks: ["TOP პოზიცია"],
-  },
-];
+  const selectedModels = form.make ? modelsByMake[form.make] || [] : [];
+  type VipPackage = "vip" | "super";
+
+  const packages: Array<{
+    id: "free" | VipPackage;
+    name: string;
+    price: number;
+    icon: typeof Upload;
+    perks: string[];
+    color: string;
+  }> = [
+    {
+      id: "free",
+      name: "უფასო",
+      price: 0,
+      icon: Upload,
+      perks: ["1 განცხადება"],
+      color: "border-primary",
+    },
+    {
+      id: "vip",
+      name: "VIP",
+      price: 3,
+      icon: Upload,
+      perks: ["VIP გამოჩენა"],
+      color: "border-amber-500",
+    },
+    {
+      id: "super",
+      name: "SUPER VIP",
+      price: 15,
+      icon: Upload,
+      perks: ["TOP პოზიცია"],
+      color: "border-orange-500",
+    },
+  ];
 
   useEffect(() => {
     if (!user) return;
@@ -135,10 +148,12 @@ const packages = [
       photos.map(async (photo) => {
         const extension = photo.name.split(".").pop()?.toLowerCase() || "jpg";
         const path = `${userId}/${crypto.randomUUID()}.${extension}`;
-        const { error } = await supabase.storage.from("car-photos").upload(path, photo, {
-          cacheControl: "3600",
-          upsert: false,
-        });
+        const { error } = await supabase.storage
+          .from("car-photos")
+          .upload(path, photo, {
+            cacheControl: "3600",
+            upsert: false,
+          });
 
         if (error) throw error;
 
@@ -185,10 +200,10 @@ const packages = [
           drive: form.drive,
           color: form.color,
           description: form.description,
-           image_url: imageUrls[0],
+          image_url: imageUrls[0],
           image_urls: imageUrls,
           contact_name: form.contact_name,
-        contact_phone: form.contact_phone,
+          contact_phone: form.contact_phone,
           user_id: user.id,
           vip,
         })
@@ -200,7 +215,10 @@ const packages = [
       toast.success("განცხადება წარმატებით დაემატა!");
       await navigate({ to: "/car/$id", params: { id: data.id } });
     } catch (error) {
-      const message = error instanceof Error ? error.message : "განცხადების დამატება ვერ მოხერხდა.";
+      const message =
+        error instanceof Error
+          ? error.message
+          : "განცხადების დამატება ვერ მოხერხდა.";
       toast.error(message);
     } finally {
       setSubmitting(false);
@@ -226,7 +244,8 @@ const packages = [
             </div>
             <h1 className="text-2xl font-bold">საჭიროა ავტორიზაცია</h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              განცხადების დასამატებლად საჭიროა შესვლა ან რეგისტრაცია. რეგისტრაცია მარტივი და უფასოა.
+              განცხადების დასამატებლად საჭიროა შესვლა ან რეგისტრაცია.
+              რეგისტრაცია მარტივი და უფასოა.
             </p>
             <Button asChild size="lg" className="mt-6 w-full gap-2">
               <Link to="/auth">
@@ -250,10 +269,15 @@ const packages = [
           შეავსე ფორმა და გაყიდე შენი ავტომობილი სწრაფად.
         </p>
 
-        <form onSubmit={submit} className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
+        <form
+          onSubmit={submit}
+          className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]"
+        >
           <div className="space-y-6">
             <section className="rounded-2xl border bg-card p-6">
-              <h2 className="mb-4 text-lg font-semibold">ძირითადი ინფორმაცია</h2>
+              <h2 className="mb-4 text-lg font-semibold">
+                ძირითადი ინფორმაცია
+              </h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="მწარმოებელი">
                   <Select
@@ -282,7 +306,9 @@ const packages = [
                   >
                     <SelectTrigger>
                       <SelectValue
-                        placeholder={form.make ? "აირჩიე მოდელი" : "ჯერ აირჩიე მწარმოებელი"}
+                        placeholder={
+                          form.make ? "აირჩიე მოდელი" : "ჯერ აირჩიე მწარმოებელი"
+                        }
                       />
                     </SelectTrigger>
                     <SelectContent>
@@ -315,15 +341,13 @@ const packages = [
                 <Field label="გარბენი (კმ)">
                   <Input
                     type="number"
-                   
                     value={form.mileage}
                     onChange={(e) => update("mileage", e.target.value)}
                     placeholder="50000"
                   />
                 </Field>
-              <Field label="ფერი">
+                <Field label="ფერი">
                   <Input
-                   
                     value={form.color}
                     onChange={(e) => update("color", e.target.value)}
                     placeholder="თეთრი"
@@ -332,7 +356,9 @@ const packages = [
               </div>
             </section>
             <section className="rounded-2xl border bg-card p-6">
-              <h2 className="mb-4 text-lg font-semibold">ტექნიკური მახასიათებლები</h2>
+              <h2 className="mb-4 text-lg font-semibold">
+                ტექნიკური მახასიათებლები
+              </h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="საწვავი">
                   <Select
@@ -349,7 +375,9 @@ const packages = [
                       <SelectItem value="ჰიბრიდი">ჰიბრიდი</SelectItem>
                       <SelectItem value="ელექტრო">ელექტრო</SelectItem>
                       <SelectItem value="თხევადი გაზი">თხევადი გაზი</SelectItem>
-                      <SelectItem value="ბუნებრივი გაზი">ბუნებრივი გაზი</SelectItem>
+                      <SelectItem value="ბუნებრივი გაზი">
+                        ბუნებრივი გაზი
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </Field>
@@ -430,7 +458,9 @@ const packages = [
                 <Upload className="h-10 w-10 text-muted-foreground" />
                 <p className="mt-3 font-medium">ატვირთე ფოტოები</p>
                 <p className="text-xs text-muted-foreground">
-                  {photos.length > 0 ? `${photos.length} ფოტო არჩეულია` : "მაქს. 10 ფოტო, JPG/PNG"}
+                  {photos.length > 0
+                    ? `${photos.length} ფოტო არჩეულია`
+                    : "მაქს. 10 ფოტო, JPG/PNG"}
                 </p>
                 <input
                   type="file"
@@ -438,7 +468,9 @@ const packages = [
                   required
                   accept="image/*"
                   className="hidden"
-                  onChange={(e) => setPhotos(Array.from(e.target.files ?? []).slice(0, 10))}
+                  onChange={(e) =>
+                    setPhotos(Array.from(e.target.files ?? []).slice(0, 10))
+                  }
                 />
               </label>
             </section>
@@ -462,7 +494,6 @@ const packages = [
                     onChange={(e) => update("contact_phone", e.target.value)}
                     placeholder="+995 555 12 34 56"
                   />
-                 
                 </Field>
               </div>
             </section>
@@ -487,7 +518,7 @@ const packages = [
                           <span className="font-semibold">{p.name}</span>
                         </div>
                         <span className="text-sm font-bold">
-                         {p.price === 0 ? "უფასო" : `${p.price} ₾`}
+                          {p.price === 0 ? "უფასო" : `${p.price} ₾`}
                         </span>
                       </div>
                       <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
@@ -499,21 +530,28 @@ const packages = [
                   );
                 })}
                 {pkg !== "free" && (
-  <div className="mt-4 rounded-lg border border-orange-300 bg-orange-50 p-4">
-    <h3 className="font-bold mb-2">გადახდის დეტალები</h3>
-    <p>მიმღები: შპს ჯეოინვესტ10/24</p>
-    <p>საქართველოს ბანკი</p>
-    <p>ანგარიშის ნომერი: GE43BG0000000589028365GEL</p>
-    <p className="mt-2 text-sm">
-      ჩარიცხვის შემდეგ ადმინისტრაცია VIP პაკეტს 24 საათის განმავლობაში გააქტიურებს.
-    </p>
-  </div>
-)}
+                  <div className="mt-4 rounded-lg border border-orange-300 bg-orange-50 p-4">
+                    <h3 className="font-bold mb-2">გადახდის დეტალები</h3>
+                    <p>მიმღები: შპს ჯეოინვესტ10/24</p>
+                    <p>საქართველოს ბანკი</p>
+                    <p>ანგარიშის ნომერი: GE43BG0000000589028365GEL</p>
+                    <p className="mt-2 text-sm">
+                      ჩარიცხვის შემდეგ ადმინისტრაცია VIP პაკეტს 24 საათის
+                      განმავლობაში გააქტიურებს.
+                    </p>
+                  </div>
+                )}
               </div>
-              <Button type="submit" size="lg" className="mt-5 w-full" disabled={submitting}>
+              <Button
+                type="submit"
+                size="lg"
+                className="mt-5 w-full"
+                disabled={submitting}
+              >
                 {submitting ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> ქვეყნდება...
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                    ქვეყნდება...
                   </>
                 ) : (
                   "გამოქვეყნება"
@@ -532,10 +570,18 @@ const packages = [
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="space-y-1.5">
-      <Label className="text-xs font-medium text-muted-foreground">{label}</Label>
+      <Label className="text-xs font-medium text-muted-foreground">
+        {label}
+      </Label>
       {children}
     </div>
   );
