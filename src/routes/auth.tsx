@@ -13,7 +13,10 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "შესვლა / რეგისტრაცია — myauto24.ge" },
-      { name: "description", content: "შედი ან გაიარე რეგისტრაცია myauto24.ge-ზე." },
+      {
+        name: "description",
+        content: "შედი ან გაიარე რეგისტრაცია myauto24.ge-ზე.",
+      },
     ],
   }),
   component: AuthPage,
@@ -40,7 +43,10 @@ function AuthPage() {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email: siEmail, password: siPass });
+    const { error } = await supabase.auth.signInWithPassword({
+      email: siEmail,
+      password: siPass,
+    });
     setLoading(false);
     if (error) return toast.error(error.message);
     toast.success("წარმატებით შეხვედი!");
@@ -50,20 +56,38 @@ function AuthPage() {
   const [name, setName] = useState("");
   const [suEmail, setSuEmail] = useState("");
   const [suPass, setSuPass] = useState("");
+  const [phone, setPhone] = useState("");
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: suEmail,
       password: suPass,
       options: {
         emailRedirectTo: window.location.origin,
-        data: { display_name: name },
+        data: { display_name: name, phone },
       },
     });
     setLoading(false);
     if (error) return toast.error(error.message);
-    toast.success("რეგისტრაცია წარმატებულია! შეამოწმე ელფოსტა დადასტურებისთვის.");
+
+    if (data.user) {
+      await supabase.from("profiles").upsert({
+        id: data.user.id,
+        display_name: name,
+        phone,
+      });
+    }
+
+    toast.success(
+      data.session
+        ? "რეგისტრაცია წარმატებულია! ახლა შეგიძლია განცხადების დამატება."
+        : "რეგისტრაცია წარმატებულია! შეამოწმე ელფოსტა დადასტურებისთვის.",
+    );
+
+    if (data.session) {
+      await navigate({ to: "/add" });
+    }
   };
 
   return (
@@ -73,7 +97,9 @@ function AuthPage() {
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Car className="h-5 w-5" />
           </div>
-          <span className="text-xl font-extrabold">myauto24<span className="text-primary">.ge</span></span>
+          <span className="text-xl font-extrabold">
+            myauto24<span className="text-primary">.ge</span>
+          </span>
         </Link>
 
         <Card className="p-6">
@@ -87,14 +113,27 @@ function AuthPage() {
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="si-email">ელფოსტა</Label>
-                  <Input id="si-email" type="email" required value={siEmail} onChange={(e) => setSiEmail(e.target.value)} />
+                  <Input
+                    id="si-email"
+                    type="email"
+                    required
+                    value={siEmail}
+                    onChange={(e) => setSiEmail(e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="si-pass">პაროლი</Label>
-                  <Input id="si-pass" type="password" required value={siPass} onChange={(e) => setSiPass(e.target.value)} />
+                  <Input
+                    id="si-pass"
+                    type="password"
+                    required
+                    value={siPass}
+                    onChange={(e) => setSiPass(e.target.value)}
+                  />
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading && <Loader2 className="h-4 w-4 animate-spin" />} შესვლა
+                  {loading && <Loader2 className="h-4 w-4 animate-spin" />}{" "}
+                  შესვლა
                 </Button>
               </form>
             </TabsContent>
@@ -103,18 +142,48 @@ function AuthPage() {
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="su-name">სახელი</Label>
-                  <Input id="su-name" required value={name} onChange={(e) => setName(e.target.value)} />
+                  <Input
+                    id="su-name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="su-email">ელფოსტა</Label>
-                  <Input id="su-email" type="email" required value={suEmail} onChange={(e) => setSuEmail(e.target.value)} />
+                  <Input
+                    id="su-email"
+                    type="email"
+                    required
+                    value={suEmail}
+                    onChange={(e) => setSuEmail(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="su-phone">ტელეფონი</Label>
+                  <Input
+                    id="su-phone"
+                    type="tel"
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="+995 555 12 34 56"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="su-pass">პაროლი</Label>
-                  <Input id="su-pass" type="password" minLength={6} required value={suPass} onChange={(e) => setSuPass(e.target.value)} />
+                  <Input
+                    id="su-pass"
+                    type="password"
+                    minLength={6}
+                    required
+                    value={suPass}
+                    onChange={(e) => setSuPass(e.target.value)}
+                  />
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading && <Loader2 className="h-4 w-4 animate-spin" />} რეგისტრაცია
+                  {loading && <Loader2 className="h-4 w-4 animate-spin" />}{" "}
+                  რეგისტრაცია
                 </Button>
               </form>
             </TabsContent>

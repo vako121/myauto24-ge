@@ -27,6 +27,7 @@ export type Database = {
           fuel: string;
           id: string;
           image_url: string;
+          image_urls: string[];
           make: string;
           mileage: number;
           model: string;
@@ -49,6 +50,7 @@ export type Database = {
           fuel: string;
           id?: string;
           image_url: string;
+          image_urls: string[];
           make: string;
           mileage: number;
           model: string;
@@ -71,6 +73,7 @@ export type Database = {
           fuel?: string;
           id?: string;
           image_url?: string;
+          image_urls?: string[];
           make?: string;
           mileage?: number;
           model?: string;
